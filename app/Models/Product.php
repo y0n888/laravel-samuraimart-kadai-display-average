@@ -10,6 +10,16 @@ class Product extends Model
 {
     use HasFactory, Sortable;
 
+    protected $fillable = [
+        'name',
+        'description',
+        'price',
+        'category_id',
+        'image',
+        'recommend_flag',
+        'carriage_flag',
+    ];
+
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -23,4 +33,12 @@ class Product extends Model
     public function favorited_users() {
         return $this->belongsToMany(User::class)->withTimestamps();
     }
+
+    public function getAverageRatingAttribute()
+    {
+        $averageRating = $this->reviews->avg('score');
+        return round(($averageRating ?? 0) * 2) / 2;
+    }
 }
+
+

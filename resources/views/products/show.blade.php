@@ -5,13 +5,21 @@
 <div class="d-flex justify-content-center">
     <div class="row w-75">
         <div class="col-5 offset-1">
+            @if ($product->image)
+            <img src="{{ asset($product->image) }}" class="w-100 img-fluid">
+            @else
             <img src="{{ asset('img/dummy.png')}}" class="w-100 img-fluid">
+            @endif
         </div>
         <div class="col">
             <div class="d-flex flex-column"> 
                 <h1 class="">
                     {{$product->name}}
                 </h1>
+                <div class="d-flex align-items-center">
+                    <div class="samuraimart-star-rating" data-rate="{{ $product->average_rating }}"></div>
+                        <p>{{ $product->average_rating }}</p> 
+                </div> 
                 <p class="">
                     {{$product->description}}
                 </p>
@@ -27,6 +35,8 @@
                 <input type="hidden" name="id" value="{{$product->id}}">
                 <input type="hidden" name="name" value="{{$product->name}}">
                 <input type="hidden" name="price" value="{{$product->price}}">
+                <input type="hidden" name="image" value="{{$product->image}}">
+                <input type="hidden" name="carriage" value="{{$product->carriage_flag}}">
                 <div class="form-group row">
                     <label for="quantity" class="col-sm-2 col-form-label">数量</label>
                     <div class="col-sm-10">
@@ -69,7 +79,12 @@
         <div class="offset-1 col-11">
             <hr class="w-100">
             <h3 class="float-left">カスタマーレビュー</h3>
+            <div class="d-flex align-items-center">
+                <div class="samuraimart-star-rating" data-rate="{{ $product->average_rating }}"></div>
+                <p>{{ $product->average_rating }}</p> 
         </div>
+        </div>
+         
 
         <div class="offset-1 col-10">
             <!-- レビューを実装する箇所になります -->
